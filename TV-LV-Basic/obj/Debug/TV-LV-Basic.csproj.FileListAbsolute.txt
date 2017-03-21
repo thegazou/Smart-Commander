@@ -1,0 +1,7 @@
+C:\Joel_Vaucher\INF3-b\dotNET\tv-lv-basic41\TV-LV-Basic\obj\Debug\TV-LV-Basic.exe
+C:\Joel_Vaucher\INF3-b\dotNET\tv-lv-basic41\TV-LV-Basic\obj\Debug\TV-LV-Basic.pdb
+C:\Joel_Vaucher\INF3-b\dotNET\tv-lv-basic41\TV-LV-Basic\bin\Debug\TV-LV-Basic.exe
+C:\Joel_Vaucher\INF3-b\dotNET\tv-lv-basic41\TV-LV-Basic\bin\Debug\TV-LV-Basic.pdb
+C:\Joel_Vaucher\INF3-b\dotNET\tv-lv-basic41\TV-LV-Basic\obj\Debug\TV-LV-Basic.csprojResolveAssemblyReference.cache
+C:\Joel_Vaucher\INF3-b\dotNET\tv-lv-basic41\TV-LV-Basic\obj\Debug\Form1.resources
+C:\Joel_Vaucher\INF3-b\dotNET\tv-lv-basic41\TV-LV-Basic\obj\Debug\TV-LV-Basic.csproj.GenerateResource.Cache
