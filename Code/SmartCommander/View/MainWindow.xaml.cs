@@ -9,17 +9,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SmartCommander.View
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
-    public partial class ExplorerWindow : UserControl
+    public partial class MainWindow : Window
     {
-        public ExplorerWindow()
+        public MainWindow()
         {
             InitializeComponent();
         }

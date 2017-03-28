@@ -1,14 +1,12 @@
-﻿<Window x:Class="SmartCommander.View.ExplorerWindow"
+﻿<UserControl x:Class="SmartCommander.View.ExplorerWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Views="clr-namespace:SmartCommander.View"
-    xmlns:local="clr-namespace:SmartCommander.ViewModel"
-    Icon="/Images/explorer.jpg"
-    Title="{Binding Path=CurrentDirectory.Name}" Width="Auto" Height="Auto">
-    <Window.Resources>
+    xmlns:local="clr-namespace:SmartCommander.ViewModel">
+    <UserControl.Resources>
         <!--<local:ControlVisibilityConverter x:Key="VisibilityConverter" />-->
         <BooleanToVisibilityConverter x:Key="BoolVisibilityConverter"></BooleanToVisibilityConverter>
-    </Window.Resources>
+    </UserControl.Resources>
     <Grid x:Name="OuterGrid" DataContext="{Binding}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -29,4 +27,4 @@
             <Views:DirectoryViewer></Views:DirectoryViewer>
         </ScrollViewer>
     </Grid>
-</Window>
+</UserControl>

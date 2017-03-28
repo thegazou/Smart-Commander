@@ -17,7 +17,7 @@ namespace SmartCommander
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
+            /*
             ExplorerWindow window = new ExplorerWindow();
 
             // ViewModel to bind the main window 
@@ -27,7 +27,20 @@ namespace SmartCommander
             // DataContext, which propagates down the element tree.
             window.DataContext = viewModel;
 
-            window.Show();
+            window.Show();*/
+
+            MainWindow mainWindow = new MainWindow();
+            // ViewModel to bind the main window 
+            ExplorerWindowViewModel viewModel = new ExplorerWindowViewModel();
+            ExplorerWindowViewModel viewModel2 = new ExplorerWindowViewModel();
+
+            // Allow all controls in the window to bind to the ViewModel by setting the 
+            // DataContext, which propagates down the element tree.
+            mainWindow.Explorer.DataContext = viewModel;
+            mainWindow.Explorer2.DataContext = viewModel2;
+
+
+            mainWindow.Show();
         }
     }
 }
