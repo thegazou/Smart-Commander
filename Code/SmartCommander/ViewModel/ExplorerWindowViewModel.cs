@@ -9,6 +9,7 @@ using System.IO;
 using System.Collections.Specialized;
 using SmartCommander.Properties;
 using System.Windows.Input;
+using SmartCommander.View;
 
 namespace SmartCommander.ViewModel
 {
@@ -20,12 +21,25 @@ namespace SmartCommander.ViewModel
         private DirectoryViewerViewModel _dirViewerVM;
         private IList<DirInfo> _currentItems;
         private bool _showDirectoryTree = true;
-        private ICommand _showTreeCommand; 
+        private ICommand _showTreeCommand;
+        private MainWindowViewModel _mainWindowVM;
+        public MainWindowViewModel MainWindowVM
+        {
+            get { return _mainWindowVM; }
+            set { _mainWindowVM = value; }
+        }
+        private int id;
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
         #endregion
 
         #region // .ctor
-        public ExplorerWindowViewModel()
+        public ExplorerWindowViewModel(int id)
         {
+            Id = id;
             FileTreeVM = new FileExplorerViewModel(this);
             DirViewVM = new DirectoryViewerViewModel(this);
             ShowTreeCommand = new RelayCommand(param => this.DirectoryTreeHideHandler());

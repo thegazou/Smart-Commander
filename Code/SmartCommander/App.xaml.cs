@@ -31,13 +31,16 @@ namespace SmartCommander
 
             MainWindow mainWindow = new MainWindow();
             // ViewModel to bind the main window 
-            ExplorerWindowViewModel viewModel = new ExplorerWindowViewModel();
-            ExplorerWindowViewModel viewModel2 = new ExplorerWindowViewModel();
-
+            ExplorerWindowViewModel viewModel = new ExplorerWindowViewModel(0);
+            ExplorerWindowViewModel viewModel2 = new ExplorerWindowViewModel(1);
+            MainWindowViewModel mainWindowVM = new MainWindowViewModel(viewModel, viewModel2);
+            viewModel.MainWindowVM = mainWindowVM;
+            viewModel2.MainWindowVM = mainWindowVM;
             // Allow all controls in the window to bind to the ViewModel by setting the 
             // DataContext, which propagates down the element tree.
             mainWindow.Explorer.DataContext = viewModel;
             mainWindow.Explorer2.DataContext = viewModel2;
+            mainWindow.DataContext = mainWindowVM;
 
 
             mainWindow.Show();

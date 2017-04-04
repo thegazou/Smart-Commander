@@ -42,6 +42,7 @@ namespace SmartCommander.View
         private void DirectoryTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             myViewModel.FileTreeVM.CurrentTreeItem = DirectoryTree.SelectedItem as DirInfo;
+            myViewModel.MainWindowVM.setPath(myViewModel.Id, myViewModel.FileTreeVM.CurrentTreeItem.Path);
         }
 
         private void TreeView_Expanded(object sender, RoutedEventArgs e)
