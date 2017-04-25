@@ -15,6 +15,15 @@ namespace SmartCommander.ViewModel
     public class MainWindowViewModel : ViewModelBase
     {
         private ExplorerWindowViewModel[] explorersVM = new ExplorerWindowViewModel[2];
+        public ExplorerWindowViewModel Explorer0
+        {
+            get { return explorersVM[0]; }
+        }
+        public ExplorerWindowViewModel Explorer1
+        {
+            get { return explorersVM[1]; }
+        }
+
         private String[] path = new String[2];
         public String Path0 {
             get { return path[0]; }

@@ -23,17 +23,9 @@ namespace SmartCommander.ViewModel
         private bool _showDirectoryTree = true;
         private ICommand _showTreeCommand;
         private MainWindowViewModel _mainWindowVM;
-        public MainWindowViewModel MainWindowVM
-        {
-            get { return _mainWindowVM; }
-            set { _mainWindowVM = value; }
-        }
         private int id;
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        private String _searchText = "";
+
         #endregion
 
         #region // .ctor
@@ -43,10 +35,31 @@ namespace SmartCommander.ViewModel
             FileTreeVM = new FileExplorerViewModel(this);
             DirViewVM = new DirectoryViewerViewModel(this);
             ShowTreeCommand = new RelayCommand(param => this.DirectoryTreeHideHandler());
-        } 
+        }
         #endregion
 
         #region // Public Properties
+
+
+        public String SearchText
+        {
+            get { return _searchText; }
+            set { _searchText = value; }
+        }
+
+
+        public MainWindowViewModel MainWindowVM
+        {
+            get { return _mainWindowVM; }
+            set { _mainWindowVM = value; }
+        }
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
         /// <summary>
         /// Name of the current directory user is in
         /// </summary>
@@ -145,7 +158,7 @@ namespace SmartCommander.ViewModel
         /// <summary>
         /// this method gets the children of current directory and stores them in the CurrentItems Observable collection
         /// </summary>
-        protected void RefreshCurrentItems()
+        public void RefreshCurrentItems()
         {
             IList<DirInfo> childDirList = new List<DirInfo>();
             IList<DirInfo> childFileList = new List<DirInfo>();
@@ -167,6 +180,20 @@ namespace SmartCommander.ViewModel
 
                 childDirList = childDirList.Concat(childFileList).ToList();
             }
+
+            //Filter the children
+            if(_searchText != "")
+            {
+                for(int i = 0; i < childDirList.Count; i++)
+                {
+                    if(!childDirList.ElementAt(i).Name.Contains(_searchText))
+                    {
+                        childDirList.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+
 
             CurrentItems = childDirList;
         } 

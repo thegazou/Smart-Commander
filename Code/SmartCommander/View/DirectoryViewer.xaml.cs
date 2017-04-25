@@ -49,7 +49,12 @@ namespace SmartCommander.View
             {
                 _viewModel.DirViewVM.OpenCurrentObject();
             }
-        } 
+        }
         #endregion
+
+        private void dirList_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _viewModel.MainWindowVM.setPath(_viewModel.Id, _viewModel.DirViewVM.CurrentItem.Path);
+        }
     }
 }

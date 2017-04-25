@@ -33,7 +33,11 @@ namespace SmartCommander.ViewModel
         public DirInfo CurrentItem
         {
             get { return _currentItem; }
-            set { _currentItem = value; }
+            set
+            {
+                _currentItem = value;
+                _evm.MainWindowVM.setPath(_evm.Id, _currentItem.Path);
+            }
         } 
         #endregion
 

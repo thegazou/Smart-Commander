@@ -110,7 +110,7 @@
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  SelectedItem="{Binding Path=DirViewVM.CurrentItem,Mode=OneWayToSource}"
                  MouseDoubleClick="dirList_MouseDoubleClick"
-                 KeyDown="dirList_KeyDown">
+                 KeyDown="dirList_KeyDown" MouseDown="dirList_MouseDown">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" ItemWidth="220"></WrapPanel>
