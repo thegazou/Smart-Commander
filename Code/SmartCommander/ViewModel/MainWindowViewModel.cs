@@ -53,5 +53,10 @@ namespace SmartCommander.ViewModel
             this.path[id] = path;
             OnPropertyChanged("Path" + id);
         }
+
+        public String getPath(int id)
+        {
+            return this.path[id];
+        }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartCommander.View"
         mc:Ignorable="d"
-        Title="AdvancedSearch" Height="300" Width="300">
+        Title="Renommer" Height="300" Width="300">
     <Grid>
         <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="50.39,96.379,0,0" VerticalAlignment="Top" Width="151.024"/>
 

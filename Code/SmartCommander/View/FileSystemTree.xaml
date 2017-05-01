@@ -43,8 +43,6 @@
             <RowDefinition Height="1"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Content="Folders" Grid.Column="0" VerticalContentAlignment="Center" FontSize="12" HorizontalContentAlignment="Stretch" FontWeight="Bold"></Label>
-        <Button Content="X" Cursor="Hand" Grid.Column="1" Focusable="False" FontFamily="Courier" FontSize="9" FontWeight="Bold" Margin="0,1,0,0" Padding="0"
-                VerticalContentAlignment="Bottom" Width="16" Height="16" HorizontalContentAlignment="Right" Command="{Binding Path=ShowTreeCommand}"/>
 
         <ScrollViewer Margin="0,0,5,0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto">
             <TreeView x:Name="DirectoryTree" 
