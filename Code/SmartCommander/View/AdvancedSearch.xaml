@@ -5,9 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartCommander.View"
         mc:Ignorable="d"
-        Title="Renommer" Height="300" Width="300">
+        Title="AdvancedSearch" Height="750" Width="850">
     <Grid>
-        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="50.39,96.379,0,0" VerticalAlignment="Top" Width="151.024"/>
+        <Label x:Name="LbPattern" Content="Pattern" HorizontalAlignment="Left" Margin="28.723,10,0,0" VerticalAlignment="Top" Width="151.024"/>
+        <Label x:Name="LbReplace" Content="Replace" HorizontalAlignment="Left" Margin="27.723,38,0,0" VerticalAlignment="Top" Width="152.024"/>
+        <Label x:Name="LbLength" Content="Length" HorizontalAlignment="Left" Margin="212.667,10,0,0" VerticalAlignment="Top" Width="151.024"/>
+        <Label x:Name="LbDefault" Content="(default 3)" HorizontalAlignment="Left" Margin="383.167,10,0,0" VerticalAlignment="Top" Width="151.024"/>
+        <TextBox x:Name="TBPattern" HorizontalAlignment="Left" Height="23" Margin="87.667,14,0,0" TextWrapping="Wrap" Text="Pattern" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="TBReplace" HorizontalAlignment="Left" Height="23" Margin="87.667,40.96,0,0" TextWrapping="Wrap" Text="Replace" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="TBLength" HorizontalAlignment="Left" Height="23" Margin="263.167,14,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="TBLength_TextChanged"/>
+
+        <Label x:Name="LBWords" Content="Detected words" HorizontalAlignment="Left" Margin="28.723,72.206,0,0" VerticalAlignment="Top" Width="151.024"/>
+        <ListView x:Name="LVWord" HorizontalAlignment="Left" Height="500" Margin="28.723,98.166,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="LVWord_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Filename" Width="120" DisplayMemberBinding="{Binding Key}" />
+                    <GridViewColumn Header="Occurences" Width="130" DisplayMemberBinding="{Binding Value}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label x:Name="LbMatch" Content="Matching File" HorizontalAlignment="Left" Margin="296.747,72.206,0,0" VerticalAlignment="Top" Width="151.024"/>
+        <ListView x:Name="LVMatch" HorizontalAlignment="Left" Height="500" Margin="296.747,98.166,0,0" VerticalAlignment="Top" Width="250">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Filename" Width="240" DisplayMemberBinding="{Binding Name}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label x:Name="LbUnmatching" Content="Unmatching File" HorizontalAlignment="Left" Margin="565.247,72.206,0,0" VerticalAlignment="Top" Width="151.024"/>
+        <ListView x:Name="LVUnmatch" HorizontalAlignment="Left" Height="500" Margin="565.247,98.166,0,0" VerticalAlignment="Top" Width="250">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Filename" Width="240" DisplayMemberBinding="{Binding Name}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="BTReplace" Content="Replace" HorizontalAlignment="Left" Margin="212.667,44,0,0" VerticalAlignment="Top" Width="75" Click="BTReplace_Click"/>
+
+
 
     </Grid>
 </Window>
