@@ -23,15 +23,18 @@ namespace SmartCommander.View
     public partial class AdvancedSearch : Window
     {
         private List<DirInfo> childFileList;
+        private String workdir;
 
         public AdvancedSearch(String path)
         {
             InitializeComponent();
 
+            workdir = path;
+
             TBPattern.Text = "";
             TBReplace.Text = "";
 
-            DirInfo CurrentDirectory = new DirInfo(new DirectoryInfo(path));
+            DirInfo CurrentDirectory = new DirInfo(new DirectoryInfo(workdir));
             childFileList = (from fobj in FileSystemExplorerService.GetChildFiles(CurrentDirectory.Path)
                                            select new DirInfo(fobj)).ToList();
 
@@ -79,7 +82,7 @@ namespace SmartCommander.View
             return detection;
         }
 
-        static public Dictionary<DirInfo, bool> DetectMatches(List<DirInfo> namefiles, List<String> detection)
+        public Dictionary<DirInfo, bool> DetectMatches(List<DirInfo> namefiles, List<String> detection)
         {
             Dictionary<DirInfo, bool> fileToOccurenceDict = namefiles.ToDictionary(x => x, x => detection.Select(f => f).Any(s => x.Name.Contains(s)));
 
@@ -87,17 +90,17 @@ namespace SmartCommander.View
 
         }
 
-        static public void ReplaceMatches(List<DirInfo> namefiles, String pattern, String replacement)
+        public void ReplaceMatches(List<DirInfo> namefiles, String pattern, String replacement)
         {
 
             Regex r = new Regex(pattern);
 
             foreach (DirInfo namefile in namefiles)
             {
-                FileInfo fileinfo = new FileInfo(namefile.Path);
+                FileInfo fileinfo = new FileInfo(workdir + "\\" + namefile.Name);
                 String NewNamefile = r.Replace(namefile.Name, replacement);
                 try {
-                    fileinfo.MoveTo(@".\" + NewNamefile);
+                    fileinfo.MoveTo(workdir + "\\" + NewNamefile);
                 } catch(Exception e)
                 {
                     //rien
