@@ -186,7 +186,7 @@ namespace SmartCommander.ViewModel
             {
                 for(int i = 0; i < childDirList.Count; i++)
                 {
-                    if(!childDirList.ElementAt(i).Name.Contains(_searchText))
+                    if(!childDirList.ElementAt(i).Name.ToLower().Contains(_searchText.ToLower()))
                     {
                         childDirList.RemoveAt(i);
                         i--;

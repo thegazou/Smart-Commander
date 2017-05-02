@@ -27,4 +27,23 @@
             <Views:DirectoryViewer></Views:DirectoryViewer>
         </ScrollViewer>
     </Grid>
+
+    <UserControl.InputBindings>
+        <KeyBinding Key="C"
+              Modifiers="Control" 
+              Command="ApplicationCommands.Copy" />
+        <KeyBinding Key="V"
+              Modifiers="Control" 
+              Command="ApplicationCommands.Paste" />
+    </UserControl.InputBindings>
+
+    <UserControl.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Copy"
+                  Executed="CopyCmdExecuted"
+                  CanExecute="CopyCmdCanExecute"/>
+        <CommandBinding Command="ApplicationCommands.Paste"
+                  Executed="PasteCmdExecuted"
+                  CanExecute="PasteCmdCanExecute"/>
+    </UserControl.CommandBindings>
+    
 </UserControl>

@@ -40,6 +40,8 @@ namespace SmartCommander
             // DataContext, which propagates down the element tree.
             mainWindow.Explorer.DataContext = viewModel;
             mainWindow.Explorer2.DataContext = viewModel2;
+            mainWindow.Explorer.ViewModel = viewModel;
+            mainWindow.Explorer2.ViewModel = viewModel2;
             mainWindow.DataContext = mainWindowVM;
 
 
