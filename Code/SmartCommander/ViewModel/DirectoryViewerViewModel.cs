@@ -58,7 +58,7 @@ namespace SmartCommander.ViewModel
                 _evm.CurrentDirectory = CurrentItem;
                 _evm.FileTreeVM.ExpandToCurrentNode(_evm.CurrentDirectory);
             }
-        } 
+        }
         #endregion
     }
 }
