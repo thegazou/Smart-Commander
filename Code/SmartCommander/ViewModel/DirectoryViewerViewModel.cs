@@ -47,16 +47,19 @@ namespace SmartCommander.ViewModel
         /// </summary>
         public void OpenCurrentObject()
         {
-            int objType = CurrentItem.DirType; //Dir/File type
+            if (CurrentItem != null)
+            {
+                int objType = CurrentItem.DirType; //Dir/File type
 
-            if ((ObjectType)CurrentItem.DirType == ObjectType.File)
-            {
-                System.Diagnostics.Process.Start(CurrentItem.Path);
-            }
-            else
-            {
-                _evm.CurrentDirectory = CurrentItem;
-                _evm.FileTreeVM.ExpandToCurrentNode(_evm.CurrentDirectory);
+                if ((ObjectType)CurrentItem.DirType == ObjectType.File)
+                {
+                    System.Diagnostics.Process.Start(CurrentItem.Path);
+                }
+                else
+                {
+                    _evm.CurrentDirectory = CurrentItem;
+                    _evm.FileTreeVM.ExpandToCurrentNode(_evm.CurrentDirectory);
+                }
             }
         }
         #endregion

@@ -65,7 +65,8 @@ namespace SmartCommander.View
 
         private void dirList_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            _viewModel.MainWindowVM.setPath(_viewModel.Id, _viewModel.DirViewVM.CurrentItem.Path);
+            if(_viewModel.DirViewVM.CurrentItem != null)
+                _viewModel.MainWindowVM.setPath(_viewModel.Id, _viewModel.DirViewVM.CurrentItem.Path);
         }
 
         private void CxmOpened(Object sender, RoutedEventArgs args)

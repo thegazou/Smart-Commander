@@ -49,13 +49,6 @@ namespace SmartCommander.View
 
             LVWord.ItemsSource = detection;
 
-
-
-            //Dictionary<DirInfo, bool> matchingfiles = DetectMatches(childFileList, );
-
-            //LVMatch.ItemsSource = matchingfiles.Where(f => f.Value).Select(f => f.Key);
-            //LVUnmatch.ItemsSource = matchingfiles.Where(f => !f.Value).Select(f => f.Key);
-
         }
 
         static public Dictionary<String, int> DetectOccurences(List<DirInfo> namefiles, int lengthMin)
