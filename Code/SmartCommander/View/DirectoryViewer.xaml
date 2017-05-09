@@ -122,35 +122,38 @@
             Opened="CxmOpened"
           >
                     <MenuItem 
-              Header="Cut"
+              Header="Couper"
               Name="cxmItemCut" 
-              KeyDown="dirList_ContextMenu_KeyDown_Cut" MouseDown="dirList_ContextMenu_MouseDown_Cut">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/folder.png" />
-                        </MenuItem.Icon>
+              Click="ClickCopy">
                     </MenuItem>
                     <MenuItem 
-              Header="Copy" 
+              Header="Copier" 
               Name="cxmItemCopy"
               Click="ClickCopy" 
-            />
-                    <MenuItem 
-              Header="Paste"
+            >
+                    </MenuItem>
+                        <MenuItem 
+              Header="Coller"
               Name="cxmItemPaste"
               Click="ClickPaste" 
             />
                     <Separator/>
                     <MenuItem 
-              Header="Select All"
-              Name="cxmItemSelectAll"
-              Click="ClickSelectAll" 
+              Header="Nouveau fichier"
+              Name="cxmItemNouveau"
+              Click="ClickNouveau" 
+            />
+                    <MenuItem 
+              Header="Supprimer"
+              Name="cxmItemDelete"
+              Click="ClickDelete" 
             />
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>
     </Grid>
 
-    
+
 </UserControl>
 
     

@@ -5,7 +5,7 @@
     >
     <UserControl.Resources>
         <local:GetFileSysemInformationConverter x:Key="getFileSysemInformationConverter"/>
-        
+
         <HierarchicalDataTemplate DataType="{x:Type local:DirInfo}" 
                                   ItemsSource="{Binding Converter={StaticResource getFileSysemInformationConverter}}">
             <StackPanel Orientation="Horizontal">
@@ -31,7 +31,7 @@
             <EventSetter Event="Expanded" Handler="TreeView_Expanded"></EventSetter>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid Background="Beige" DataContext="{Binding }" Width="300">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>

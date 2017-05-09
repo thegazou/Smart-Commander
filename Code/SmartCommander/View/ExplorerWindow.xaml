@@ -23,7 +23,7 @@
         <GridSplitter Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Width="3" Background="Gray" Visibility="{Binding Path=ShowDirectoryTree, Converter={StaticResource BoolVisibilityConverter}}" />
 
         <!--Display the File and Directory Selector on the right side of the grid-->
-        <ScrollViewer Grid.Column="1" Grid.Row="0">
+        <ScrollViewer Grid.Column="1" Grid.Row="0" >
             <Views:DirectoryViewer></Views:DirectoryViewer>
         </ScrollViewer>
     </Grid>
@@ -35,6 +35,9 @@
         <KeyBinding Key="V"
               Modifiers="Control" 
               Command="ApplicationCommands.Paste" />
+        <KeyBinding Key="X"
+              Modifiers="Control" 
+              Command="ApplicationCommands.Cut" />
     </UserControl.InputBindings>
 
     <UserControl.CommandBindings>
@@ -44,6 +47,9 @@
         <CommandBinding Command="ApplicationCommands.Paste"
                   Executed="PasteCmdExecuted"
                   CanExecute="PasteCmdCanExecute"/>
+        <CommandBinding Command="ApplicationCommands.Cut"
+                  Executed="CutCmdExecuted"
+                  CanExecute="CutCmdCanExecute"/>
     </UserControl.CommandBindings>
     
 </UserControl>

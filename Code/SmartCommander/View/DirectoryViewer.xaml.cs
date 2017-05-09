@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.IO;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -12,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SmartCommander.ViewModel;
+using SmartCommander.Model;
 
 namespace SmartCommander.View
 {
@@ -22,6 +24,7 @@ namespace SmartCommander.View
     {
         #region // Private members
         private ExplorerWindowViewModel _viewModel;
+        private static String copyPath;
         #endregion
 
         #region // .ctor
@@ -50,17 +53,6 @@ namespace SmartCommander.View
                 _viewModel.DirViewVM.OpenCurrentObject();
             }
         }
-        private void dirList_ContextMenu_KeyDown_Cut(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                _viewModel.DirViewVM.OpenCurrentObject();
-            }
-        }
-        private void dirList_ContextMenu_MouseDown_Cut(object sender, MouseButtonEventArgs e)
-        {
-            _viewModel.DirViewVM.OpenCurrentObject();
-        }
         #endregion
 
         private void dirList_MouseDown(object sender, MouseButtonEventArgs e)
@@ -71,30 +63,80 @@ namespace SmartCommander.View
 
         private void CxmOpened(Object sender, RoutedEventArgs args)
         {
-            /*
-            // Only allow copy/cut if something is selected to copy/cut.
-            if (_viewModel.CurrentDirectory.DependencyObjectType.SelectedText == "")
-                cxmItemCopy.IsEnabled = cxmItemCut.IsEnabled = false;
-            else
-                cxmItemCopy.IsEnabled = cxmItemCut.IsEnabled = true;
-                */
-            // Only allow paste if there is text on the clipboard to paste.
-            if (Clipboard.ContainsText())
+            if (_viewModel.DirViewVM.CurrentItem != null)
+            {
                 cxmItemPaste.IsEnabled = true;
+                cxmItemCut.IsEnabled = true;
+                cxmItemCopy.IsEnabled = true;
+            }
             else
+            {
                 cxmItemPaste.IsEnabled = false;
+                cxmItemCut.IsEnabled = false;
+                cxmItemCopy.IsEnabled = false;
+            }
+            if (_viewModel.DirViewVM.CurrentItem.DirType != (int)ObjectType.File)
+            {
+                cxmItemCut.IsEnabled = false;
+                cxmItemCopy.IsEnabled = false;
+                cxmItemDelete.IsEnabled = false;
+            }
+            else
+            {
+                cxmItemCut.IsEnabled = true;
+                cxmItemCopy.IsEnabled = true;
+                cxmItemDelete.IsEnabled = true;
+            }
+            if (copyPath == null)
+                cxmItemPaste.IsEnabled = false;
+            else
+                cxmItemPaste.IsEnabled = true;
+
         }
         private void ClickCopy(Object sender, RoutedEventArgs args)
         {
-            //TODO
-                }
+            if (_viewModel.DirViewVM.CurrentItem != null && _viewModel.DirViewVM.CurrentItem.DirType==(int)ObjectType.File)
+            {
+                copyPath = _viewModel.MainWindowVM.getPath(_viewModel.Id);
+                _viewModel.RefreshCurrentItems();
+            }
+                
+        }
         private void ClickPaste(Object sender, RoutedEventArgs args)
         {
-
+            if (_viewModel.DirViewVM.CurrentItem != null && copyPath != null)
+                MoveFileService.PastFile(copyPath, _viewModel);
+            _viewModel.RefreshCurrentItems();
         }
-        private void ClickSelectAll(Object sender, RoutedEventArgs args)
+        private void ClickNouveau(Object sender, RoutedEventArgs args)
         {
-
+            if (_viewModel.DirViewVM.CurrentItem != null)
+                if(_viewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.Directory)
+                    File.Create(_viewModel.MainWindowVM.getPath(_viewModel.Id)+"\\nouveau fichier.txt");
+                else
+                {
+                    String fileName = _viewModel.MainWindowVM.getPath(_viewModel.Id).Split('\\').Last();
+                    String temp = _viewModel.MainWindowVM.getPath(_viewModel.Id).Substring(0, _viewModel.MainWindowVM.getPath(_viewModel.Id).LastIndexOf(fileName)) + "nouveau fichier.txt";
+                    File.Create(temp);
+                }
+            _viewModel.RefreshCurrentItems();
+        }
+        private void ClickDelete(Object sender, RoutedEventArgs args)
+        {
+            if (_viewModel.DirViewVM.CurrentItem != null && _viewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.File)
+                File.Delete(_viewModel.MainWindowVM.getPath(_viewModel.Id));
+            _viewModel.RefreshCurrentItems();
+        }
+        private void ClickCut(Object sender, RoutedEventArgs args)
+        {
+            if (_viewModel.DirViewVM.CurrentItem != null && _viewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.File)
+            {
+                String temp = _viewModel.MainWindowVM.getPath(_viewModel.Id);
+                copyPath = _viewModel.MainWindowVM.getPath(_viewModel.Id);
+                MoveFileService.PastFile(copyPath, _viewModel);
+                File.Delete(temp);
+            }
+            _viewModel.RefreshCurrentItems();
         }
     }
 }

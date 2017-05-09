@@ -1,4 +1,5 @@
-﻿using SmartCommander.ViewModel;
+﻿using SmartCommander.Model;
+using SmartCommander.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,18 +43,40 @@ namespace SmartCommander.View
 
         void CopyCmdCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            if (myViewModel.DirViewVM.CurrentItem != null && myViewModel.DirViewVM.CurrentItem.DirType != (int)ObjectType.File && copyPath != null)
+                e.CanExecute = true;
+            else
+                e.CanExecute = false;
         }
 
         void PasteCmdExecuted(object target, ExecutedRoutedEventArgs e)
         {
-            String fileName = copyPath.Split('\\').Last();
-            File.Copy(copyPath, myViewModel.FileTreeVM.CurrentTreeItem.Path + "\\" + fileName);
+            MoveFileService.PastFile(copyPath, myViewModel);
+            myViewModel.RefreshCurrentItems();
         }
 
         void PasteCmdCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = copyPath != null;
+            if (myViewModel.DirViewVM.CurrentItem != null && myViewModel.DirViewVM.CurrentItem.DirType != (int)ObjectType.File)
+                e.CanExecute = true;
+            else
+                e.CanExecute = false;
+        }
+
+        void CutCmdCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (myViewModel.DirViewVM.CurrentItem != null && myViewModel.DirViewVM.CurrentItem.DirType != (int)ObjectType.File)
+                e.CanExecute = true;
+            else
+                e.CanExecute = false;
+        }
+        void CutCmdExecuted(object target, ExecutedRoutedEventArgs e)
+        {
+            String temp = myViewModel.MainWindowVM.getPath(myViewModel.Id);
+            copyPath = myViewModel.MainWindowVM.getPath(myViewModel.Id);
+            MoveFileService.PastFile(copyPath, myViewModel);
+            File.Delete(temp);
+            myViewModel.RefreshCurrentItems();
         }
 
     }
