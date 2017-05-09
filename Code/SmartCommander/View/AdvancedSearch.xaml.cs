@@ -62,8 +62,6 @@ namespace SmartCommander.View
             do
             {
                 mc = r.Matches(nameJoin);
-
-                int i = 0;
                 foreach (Match m in mc)
                 {
                     int nbOcc = Regex.Matches(nameJoin, m.Groups[1].Value).Count;
@@ -94,7 +92,7 @@ namespace SmartCommander.View
                 String NewNamefile = r.Replace(namefile.Name, replacement);
                 try {
                     fileinfo.MoveTo(workdir + "\\" + NewNamefile);
-                } catch(Exception e)
+                } catch(Exception)
                 {
                     //rien
                 }

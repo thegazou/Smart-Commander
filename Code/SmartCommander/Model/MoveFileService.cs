@@ -1,6 +1,5 @@
 ﻿using SmartCommander.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -15,19 +14,25 @@ namespace SmartCommander.Model
             if (_viewModel.DirViewVM.CurrentItem != null)
             {
                 if (_viewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.Directory)
-                    destFileName = _viewModel.MainWindowVM.getPath(_viewModel.Id) + fileName;
+                    destFileName = _viewModel.MainWindowVM.getPath(_viewModel.Id) + "\\" + fileName;
                 else
-                    destFileName = _viewModel.MainWindowVM.getPath(_viewModel.Id);
+                {
+                    String dirName = _viewModel.MainWindowVM.getPath(_viewModel.Id).Substring(0, _viewModel.MainWindowVM.getPath(_viewModel.Id).LastIndexOf(fileName));
+                    destFileName = dirName + fileName;
+                }
+
                 if (File.Exists(destFileName))
                 {
                     //check si existe déjà
+                    if (destFileName.Contains("-Copie("))
+                        destFileName = destFileName.Substring(0, destFileName.LastIndexOf("-Copie(")) + '.' + copyPath.Split('.').Last();
                     String temp = destFileName;
                     String extension = copyPath.Split('.').Last();
                     int increment = 1;
                     while (File.Exists(temp))
                     {
                         temp = destFileName.Split('.').First();
-                        temp += "Copie(" + increment + ")." + extension;
+                        temp += "-Copie(" + increment + ")." + extension;
                         increment++;
                     }
                     destFileName = temp;

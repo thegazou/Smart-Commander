@@ -15,6 +15,7 @@ namespace SmartCommander.View
 
         private ExplorerWindowViewModel myViewModel;
         private static String copyPath;
+        private static bool isCut;
 
         public ExplorerWindowViewModel ViewModel
         {
@@ -29,11 +30,12 @@ namespace SmartCommander.View
         void CopyCmdExecuted(object target, ExecutedRoutedEventArgs e)
         {
             copyPath = myViewModel.MainWindowVM.getPath(myViewModel.Id);
+            isCut = false;
         }
 
         void CopyCmdCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (myViewModel.DirViewVM.CurrentItem != null && myViewModel.DirViewVM.CurrentItem.DirType != (int)ObjectType.File && copyPath != null)
+            if (myViewModel.DirViewVM.CurrentItem != null && myViewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.File)
                 e.CanExecute = true;
             else
                 e.CanExecute = false;
@@ -41,13 +43,20 @@ namespace SmartCommander.View
 
         void PasteCmdExecuted(object target, ExecutedRoutedEventArgs e)
         {
-            MoveFileService.PastFile(copyPath, myViewModel);
+            if (isCut)
+            {
+                MoveFileService.PastFile(copyPath, myViewModel);
+                File.Delete(copyPath);
+                copyPath = null;
+            }
+            else
+                MoveFileService.PastFile(copyPath, myViewModel);
             myViewModel.RefreshCurrentItems();
         }
 
         void PasteCmdCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (myViewModel.DirViewVM.CurrentItem != null && myViewModel.DirViewVM.CurrentItem.DirType != (int)ObjectType.File)
+            if (myViewModel.DirViewVM.CurrentItem != null && copyPath != null)
                 e.CanExecute = true;
             else
                 e.CanExecute = false;
@@ -55,18 +64,16 @@ namespace SmartCommander.View
 
         void CutCmdCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (myViewModel.DirViewVM.CurrentItem != null && myViewModel.DirViewVM.CurrentItem.DirType != (int)ObjectType.File)
+            if (myViewModel.DirViewVM.CurrentItem != null && myViewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.File)
                 e.CanExecute = true;
             else
                 e.CanExecute = false;
         }
         void CutCmdExecuted(object target, ExecutedRoutedEventArgs e)
         {
-            String temp = myViewModel.MainWindowVM.getPath(myViewModel.Id);
             copyPath = myViewModel.MainWindowVM.getPath(myViewModel.Id);
-            MoveFileService.PastFile(copyPath, myViewModel);
-            File.Delete(temp);
-            myViewModel.RefreshCurrentItems();
+            isCut = true;
+
         }
 
     }

@@ -17,6 +17,7 @@ namespace SmartCommander.View
         #region // Private members
         private ExplorerWindowViewModel _viewModel;
         private static String copyPath;
+        private static bool isCut;
         #endregion
 
         #region // .ctor
@@ -57,49 +58,63 @@ namespace SmartCommander.View
         {
             if (_viewModel.DirViewVM.CurrentItem != null)
             {
-                cxmItemPaste.IsEnabled = true;
-                cxmItemCut.IsEnabled = true;
-                cxmItemCopy.IsEnabled = true;
+                if (_viewModel.DirViewVM.CurrentItem.DirType != (int)ObjectType.File)
+                {
+                    cxmItemCut.IsEnabled = false;
+                    cxmItemCopy.IsEnabled = false;
+                    cxmItemDelete.IsEnabled = false;
+                }
+                else
+                {
+                    cxmItemCut.IsEnabled = true;
+                    cxmItemCopy.IsEnabled = true;
+                    cxmItemDelete.IsEnabled = true;
+                }
+                cxmItemNouveau.IsEnabled = true;
+                if (copyPath == null)
+                    cxmItemPaste.IsEnabled = false;
+                else
+                    cxmItemPaste.IsEnabled = true;
             }
             else
             {
                 cxmItemPaste.IsEnabled = false;
-                cxmItemCut.IsEnabled = false;
-                cxmItemCopy.IsEnabled = false;
-            }
-            if (_viewModel.DirViewVM.CurrentItem.DirType != (int)ObjectType.File)
-            {
                 cxmItemCut.IsEnabled = false;
                 cxmItemCopy.IsEnabled = false;
                 cxmItemDelete.IsEnabled = false;
+                cxmItemNouveau.IsEnabled = false;
             }
-            else
-            {
-                cxmItemCut.IsEnabled = true;
-                cxmItemCopy.IsEnabled = true;
-                cxmItemDelete.IsEnabled = true;
-            }
-            if (copyPath == null)
-                cxmItemPaste.IsEnabled = false;
-            else
-                cxmItemPaste.IsEnabled = true;
+
 
         }
+
         private void ClickCopy(Object sender, RoutedEventArgs args)
         {
             if (_viewModel.DirViewVM.CurrentItem != null && _viewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.File)
             {
                 copyPath = _viewModel.MainWindowVM.getPath(_viewModel.Id);
                 _viewModel.RefreshCurrentItems();
+                isCut = false;
             }
 
         }
+
         private void ClickPaste(Object sender, RoutedEventArgs args)
         {
             if (_viewModel.DirViewVM.CurrentItem != null && copyPath != null)
-                MoveFileService.PastFile(copyPath, _viewModel);
+            {
+                if (isCut)
+                {
+                    MoveFileService.PastFile(copyPath, _viewModel);
+                    File.Delete(copyPath);
+                    copyPath = null;
+                }
+                else
+                    MoveFileService.PastFile(copyPath, _viewModel);
+            }
             _viewModel.RefreshCurrentItems();
         }
+
         private void ClickNouveau(Object sender, RoutedEventArgs args)
         {
             if (_viewModel.DirViewVM.CurrentItem != null)
@@ -113,22 +128,22 @@ namespace SmartCommander.View
                 }
             _viewModel.RefreshCurrentItems();
         }
+
         private void ClickDelete(Object sender, RoutedEventArgs args)
         {
             if (_viewModel.DirViewVM.CurrentItem != null && _viewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.File)
                 File.Delete(_viewModel.MainWindowVM.getPath(_viewModel.Id));
             _viewModel.RefreshCurrentItems();
         }
+
         private void ClickCut(Object sender, RoutedEventArgs args)
         {
             if (_viewModel.DirViewVM.CurrentItem != null && _viewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.File)
             {
-                String temp = _viewModel.MainWindowVM.getPath(_viewModel.Id);
                 copyPath = _viewModel.MainWindowVM.getPath(_viewModel.Id);
-                MoveFileService.PastFile(copyPath, _viewModel);
-                File.Delete(temp);
+                _viewModel.RefreshCurrentItems();
+                isCut = true;
             }
-            _viewModel.RefreshCurrentItems();
         }
     }
 }
