@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
 using System.Diagnostics;
 
@@ -25,7 +24,8 @@ namespace SmartCommander.Model
                 return (from x in Directory.GetFiles(directory)
                         select new FileInfo(x)).ToList();
             }
-            catch (Exception e){
+            catch (Exception e)
+            {
                 Trace.WriteLine(e.Message);
             }
 

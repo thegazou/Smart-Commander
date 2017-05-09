@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using SmartCommander.Model;
-
-namespace SmartCommander.ViewModel
+﻿namespace SmartCommander.ViewModel
 {
     /// <summary>
     /// View model for the right side pane
@@ -16,14 +7,14 @@ namespace SmartCommander.ViewModel
     {
         #region // Private variables
         private ExplorerWindowViewModel _evm;
-        private DirInfo _currentItem; 
+        private DirInfo _currentItem;
         #endregion
 
         #region // .ctor
         public DirectoryViewerViewModel(ExplorerWindowViewModel evm)
         {
             _evm = evm;
-        } 
+        }
         #endregion
 
         #region // Public members
@@ -38,7 +29,7 @@ namespace SmartCommander.ViewModel
                 _currentItem = value;
                 _evm.MainWindowVM.setPath(_evm.Id, _currentItem.Path);
             }
-        } 
+        }
         #endregion
 
         #region // Public Methods

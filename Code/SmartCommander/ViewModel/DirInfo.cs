@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.IO;
-using SmartCommander.Properties;
 using System.Windows;
-using System.Collections;
 
 
 namespace SmartCommander.ViewModel
@@ -56,7 +50,7 @@ namespace SmartCommander.ViewModel
         {
             get { return (bool)GetValue(propertyIsSelected); }
             set { SetValue(propertyIsSelected, value); }
-        } 
+        }
         #endregion
 
         #region // .ctor(s)
@@ -99,7 +93,7 @@ namespace SmartCommander.ViewModel
 
             Path = driveobj.Name;
             DirType = (int)ObjectType.DiskDrive;
-        } 
+        }
         #endregion
     }
 }

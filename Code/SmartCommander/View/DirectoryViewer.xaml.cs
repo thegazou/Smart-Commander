@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.IO;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using SmartCommander.ViewModel;
 using SmartCommander.Model;
 
@@ -57,7 +49,7 @@ namespace SmartCommander.View
 
         private void dirList_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(_viewModel.DirViewVM.CurrentItem != null)
+            if (_viewModel.DirViewVM.CurrentItem != null)
                 _viewModel.MainWindowVM.setPath(_viewModel.Id, _viewModel.DirViewVM.CurrentItem.Path);
         }
 
@@ -95,12 +87,12 @@ namespace SmartCommander.View
         }
         private void ClickCopy(Object sender, RoutedEventArgs args)
         {
-            if (_viewModel.DirViewVM.CurrentItem != null && _viewModel.DirViewVM.CurrentItem.DirType==(int)ObjectType.File)
+            if (_viewModel.DirViewVM.CurrentItem != null && _viewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.File)
             {
                 copyPath = _viewModel.MainWindowVM.getPath(_viewModel.Id);
                 _viewModel.RefreshCurrentItems();
             }
-                
+
         }
         private void ClickPaste(Object sender, RoutedEventArgs args)
         {
@@ -111,8 +103,8 @@ namespace SmartCommander.View
         private void ClickNouveau(Object sender, RoutedEventArgs args)
         {
             if (_viewModel.DirViewVM.CurrentItem != null)
-                if(_viewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.Directory)
-                    File.Create(_viewModel.MainWindowVM.getPath(_viewModel.Id)+"\\nouveau fichier.txt");
+                if (_viewModel.DirViewVM.CurrentItem.DirType == (int)ObjectType.Directory)
+                    File.Create(_viewModel.MainWindowVM.getPath(_viewModel.Id) + "\\nouveau fichier.txt");
                 else
                 {
                     String fileName = _viewModel.MainWindowVM.getPath(_viewModel.Id).Split('\\').Last();
